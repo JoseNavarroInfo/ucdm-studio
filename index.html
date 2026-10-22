@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UCDM Premium Studio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap');
+:root{--navy:#111a35;--navy2:#1d2d52;--gold:#d9bd75;--pale:#f5e9c8;--muted:#aeb7cb;--line:#34415e;--panel:#192440}
+*{box-sizing:border-box}body{margin:0;background:#0b1226;color:#f3f0e8;font:14px 'DM Sans',sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid #455171;border-radius:10px;background:#202c49;color:#f5f0e3;padding:12px;font-weight:700}
+button:hover{border-color:var(--gold)}button.primary{background:var(--gold);border-color:var(--gold);color:#111a35}
+header{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,42px);border-bottom:1px solid var(--line);background:#101a34;position:sticky;top:0;z-index:2}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:36px;height:36px;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-size:20px}.name{font-weight:800;font-size:12px;letter-spacing:.16em}.tag{font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:.08em}
+main{max-width:1200px;margin:auto;padding:24px clamp(12px,3vw,32px);display:grid;grid-template-columns:minmax(280px,390px) minmax(300px,1fr);gap:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px}.head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.head b{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}.inside{padding:16px}
+.label{display:block;font-size:11px;color:var(--muted);margin-bottom:7px}.field{margin-bottom:14px}.field:last-child{margin-bottom:0}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid #465270;border-radius:9px;background:#111a32;color:#f6efd9;outline:none}textarea{min-height:95px;resize:vertical;line-height:1.55}option{background:#111a32}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice{text-align:left;display:block;width:100%;padding:12px}.choice strong{display:block;font-size:12px}.choice small{display:block;color:var(--muted);font-size:10px;font-weight:400;margin-top:4px;line-height:1.4}.choice.active{border-color:var(--gold);background:#29324a;box-shadow:inset 0 0 0 1px #d9bd7530}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hint,.status,.notice{font-size:11px;line-height:1.6;color:var(--muted)}.status{color:var(--gold);margin-top:10px}.full{width:100%}.hidden{display:none!important}
+.preview{padding:16px}.previewhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.previewhead b{font-size:11px;letter-spacing:.12em;color:var(--gold)}.live{font-size:10px;color:#c9d4b5}.canvaswrap{background:#0a1020;border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;justify-content:center;align-items:center;min-height:300px}.canvasinner{width:min(100%,440px)}canvas{display:block;width:100%;height:auto;box-shadow:0 12px 35px #0008}.actions{display:flex;gap:8px;margin-top:12px}.actions button{flex:1}.notice{padding:13px;border:1px solid var(--line);border-radius:10px;background:#131d36;margin-top:14px}
+details summary{cursor:pointer;color:var(--gold);font-size:11px}footer{max-width:1200px;margin:auto;padding:0 32px 24px;color:#9ca8c0;font-size:10px;line-height:1.7}
+@media(max-width:800px){main{grid-template-columns:1fr;padding:12px}.right{order:-1}header{padding:0 12px}.tag{display:none}.inside{padding:13px}.canvaswrap{min-height:220px}footer{padding:0 14px 22px}}
+</style></head><body>
+<header><div class="brand"><div class="logo">✳</div><div><div class="name">UCDM PREMIUM STUDIO</div><div class="tag">UN ESPACIO PARA CREAR CON CLARIDAD</div></div></div><button class="primary" id="downloadTop">Descargar PNG</button></header>
+<main><section>
+<div class="card"><div class="head"><b>01 · Formato</b></div><div class="inside"><div class="choices"><button class="choice active" data-format="feed"><strong>Feed</strong><small>1080 × 1350 · 4:5</small></button><button class="choice" data-format="story"><strong>Historia</strong><small>1080 × 1920 · 9:16</small></button></div></div></div>
+<div class="card"><div class="head"><b>02 · Generar contenido</b></div><div class="inside">
+<div class="field"><label class="label" for="topic">Tema</label><select id="topic"><option value="paz">Paz interior</option><option value="perdon">Perdón</option><option value="miedo">Miedo y amor</option><option value="culpa">Culpa</option><option value="relaciones">Relaciones</option><option value="ego">Ego y percepción</option><option value="dios">Confianza en Dios</option><option value="presente">Presente y quietud</option></select></div>
+<div class="field"><label class="label">Elige qué generar</label><div class="choices">
+<button class="choice active" id="generatePara"><strong>Generar paráfrasis</strong><small>Frase original inspirada en el Curso</small></button>
+<button class="choice" id="generateLesson"><strong>Generar lección</strong><small>Título textual verificado en el PDF</small></button>
+<button class="choice" id="generateBook"><strong>Generar Libro de Texto</strong><small>Paráfrasis con capítulo correcto</small></button>
+<button class="choice" id="generateEgo"><strong>El ego / El espíritu</strong><small>Genera las dos frases en conjunto</small></button>
+</div></div>
+<div class="field hidden" id="lessonField"><label class="label" for="lessonSelect">Seleccionar lección indexada</label><select id="lessonSelect"></select><div class="hint">Puedes elegir una lección o dejar “Aleatoria”. El texto mostrado como literal es el título de la lección, no el contenido completo de ese día.</div></div>
+<div class="field hidden" id="chapterField"><label class="label" for="chapterSelect">Capítulo del Texto</label><select id="chapterSelect"></select></div>
+<div class="field"><label class="label" for="quote">Texto para la imagen</label><textarea id="quote">La paz comienza cuando dejo de luchar con este instante.</textarea></div>
+<details class="field"><summary>Opcional: diseñar una cita textual de tu edición</summary><textarea id="literal" style="min-height:75px;margin-top:10px" placeholder="Pega aquí una cita breve que quieras usar, y añade su referencia si la conoces."></textarea><input id="literalRef" placeholder="Referencia (opcional): lección, capítulo y sección" style="margin-top:8px"><button id="useLiteral" class="full" style="margin-top:8px">Usar cita pegada</button></details>
+<div class="status" id="status">Elige un botón para generar texto e imagen automáticamente.</div>
+</div></div>
+<div class="card"><div class="head"><b>03 · Diseño</b></div><div class="inside">
+<div class="row"><div class="field"><label class="label" for="font">Tipografía</label><select id="font"><option value="Playfair Display">Editorial clásica</option><option value="DM Sans">Moderna</option><option value="Georgia">Clásica</option></select></div><div class="field"><label class="label" for="size">Tamaño</label><select id="size"><option value="small">Discreto</option><option value="medium" selected>Equilibrado</option><option value="large">Grande</option></select></div></div>
+<div class="field"><label class="label" for="kicker">Texto superior</label><input id="kicker" value="UN CURSO DE MILAGROS"></div><div class="field"><label class="label" for="signature">Firma</label><input id="signature" value="UN CURSO DE MILAGROS"></div><button class="full" id="reset">Restablecer diseño</button>
+</div></div></section>
+<section class="right"><div class="card preview"><div class="previewhead"><b>VISTA PREVIA</b><span class="live">● En vivo</span></div><div class="canvaswrap"><div class="canvasinner"><canvas id="art" width="1080" height="1350"></canvas></div></div><div class="actions"><button class="primary" id="download">Descargar PNG</button><button id="copy">Copiar texto</button></div></div>
+<div class="notice"><b style="color:var(--gold)">Fuente y precisión:</b> el editor incluye un índice de títulos de lecciones y capítulos extraídos del PDF que compartiste. Las paráfrasis son originales y se etiquetan como tales. La función no afirma que una paráfrasis sea una cita textual ni que provenga de un párrafo específico.</div></section></main>
+<footer>UCDM PREMIUM STUDIO · Editor local. No necesita conexión para generar las frases incluidas. Las fuentes y tipografías externas pueden requerir internet. Las citas textuales que pegues se conservan tal como las escribiste.</footer>
+<script>
+const LESSONS = [{"n": 1, "title": "Nada de lo que veo en esta habitación... tiene significado."}, {"n": 2, "title": "Le he dado a todo lo que veo en esta habitación... todo el significado que tiene para mí."}, {"n": 3, "title": "No entiendo nada de lo que veo en esta habitación."}, {"n": 4, "title": "Estos pensamientos no significan nada."}, {"n": 5, "title": "Nunca estoy disgustado por la razón que creo."}, {"n": 6, "title": "Estoy disgustado porque veo algo que no está ahí."}, {"n": 7, "title": "Sólo veo el pasado."}, {"n": 8, "title": "Mi mente está absorbida con pensamientos del pasado."}, {"n": 9, "title": "No veo nada tal como es ahora."}, {"n": 10, "title": "Mis pensamientos no significan nada."}, {"n": 11, "title": "Mis pensamientos sin significado me muestran un mundo sin significado."}, {"n": 12, "title": "Estoy disgustado porque veo un mundo que no tiene significado."}, {"n": 13, "title": "Un mundo sin significado engendra temor."}, {"n": 14, "title": "Dios no creó un mundo sin significado."}, {"n": 15, "title": "Mis pensamientos son imágenes que yo mismo he fabricado."}, {"n": 16, "title": "No tengo pensamientos neutros."}, {"n": 17, "title": "No veo cosas neutras."}, {"n": 18, "title": "No soy el único que experimenta los efectos de mi manera de ver."}, {"n": 19, "title": "No soy el único que experimenta los efectos de mis pensamientos."}, {"n": 20, "title": "Estoy decidido a ver."}, {"n": 21, "title": "Estoy decidido a ver las cosas de otra manera."}, {"n": 22, "title": "Lo que veo es una forma de venganza."}, {"n": 23, "title": "Puedo escaparme del mundo que veo renunciando a los pensamientos de ataque."}, {"n": 24, "title": "No percibo lo que más me conviene."}, {"n": 25, "title": "No sé cuál es el propósito de nada."}, {"n": 26, "title": "Mis pensamientos de ataque atacan mi invulnerabilidad."}, {"n": 27, "title": "Por encima de todo quiero ver."}, {"n": 28, "title": "Por encima de todo quiero ver las cosas de otra manera."}, {"n": 29, "title": "Dios está en todo lo que veo."}, {"n": 30, "title": "Dios está en todo lo que veo porque Dios está en mi mente."}, {"n": 31, "title": "No soy víctima del mundo que veo."}, {"n": 32, "title": "He inventado el mundo que veo."}, {"n": 33, "title": "Hay otra manera de ver el mundo."}, {"n": 34, "title": "Podría ver paz en lugar de esto."}, {"n": 35, "title": "Mi mente es parte de la de Dios. Soy muy santo."}, {"n": 36, "title": "Mi santidad envuelve todo lo que veo."}, {"n": 37, "title": "Mi santidad bendice al mundo."}, {"n": 38, "title": "No hay nada que mi santidad no pueda hacer."}, {"n": 39, "title": "Mi santidad es mi salvación."}, {"n": 40, "title": "Soy bendito por ser un Hijo de Dios."}, {"n": 41, "title": "Dios va conmigo dondequiera que yo voy."}, {"n": 42, "title": "Dios es mi Fortaleza. La visión es Su regalo."}, {"n": 43, "title": "Dios es mi Fuente. No puedo ver separado de Él."}, {"n": 44, "title": "Dios es la Luz en la que veo."}, {"n": 45, "title": "Dios es la Mente con la que pienso."}, {"n": 46, "title": "Dios es el Amor en el que perdono."}, {"n": 47, "title": "Dios es la Fortaleza en la que confío."}, {"n": 48, "title": "No hay nada que temer."}, {"n": 49, "title": "La Voz de Dios me habla durante todo el día."}, {"n": 50, "title": "El Amor de Dios es mi sustento."}, {"n": 58, "title": "36–40)"}, {"n": 61, "title": "Soy la luz del mundo."}, {"n": 62, "title": "Perdonar es mi función por ser la luz del mundo."}, {"n": 63, "title": "La luz del mundo brinda paz a todas las mentes a través de mi perdón."}, {"n": 64, "title": "Que no me olvide de mi función."}, {"n": 65, "title": "Mi única función es la que Dios me dio."}, {"n": 66, "title": "Mi función y mi felicidad son una."}, {"n": 67, "title": "El Amor me creó a Su Semejanza."}, {"n": 68, "title": "El amor no abriga resentimientos."}, {"n": 69, "title": "Mis resentimientos ocultan la luz del mundo de mí."}, {"n": 70, "title": "Mi salvación procede de mí."}, {"n": 71, "title": "Sólo el plan de Dios para la salvación tendrá éxito."}, {"n": 72, "title": "Abrigar resentimientos es un ataque contra el plan de Dios para la salvación."}, {"n": 73, "title": "Mi voluntad es que se haga la luz."}, {"n": 74, "title": "No hay más voluntad que la de Dios."}, {"n": 75, "title": "La luz ha llegado."}, {"n": 76, "title": "No me gobiernan otras leyes que las de Dios."}, {"n": 77, "title": "Tengo derecho a los milagros."}, {"n": 78, "title": "¡Que los milagros reemplacen todos mis resentimientos!"}, {"n": 79, "title": "Que reconozca el problema para que pueda ser resuelto."}, {"n": 80, "title": "Que reconozca que mis problemas se han resuelto."}, {"n": 91, "title": "Los milagros se ven en la luz."}, {"n": 92, "title": "Los milagros se ven en la luz, y la luz y la fortaleza son una."}, {"n": 93, "title": "La luz, la dicha y la paz moran en mí."}, {"n": 94, "title": "Soy tal como Dios me creó."}, {"n": 95, "title": "Soy un solo Ser, unido a mi Creador."}, {"n": 96, "title": "La salvación procede de mi único Ser."}, {"n": 97, "title": "Soy Espíritu."}, {"n": 98, "title": "Aceptaré el papel que me corresponde en el plan de Dios para la salvación."}, {"n": 99, "title": "La salvación es mi única función aquí."}, {"n": 100, "title": "Mi papel en el plan de Dios para la salvación es esencial."}, {"n": 101, "title": "La Voluntad de Dios para mí es perfecta felicidad."}, {"n": 102, "title": "Comparto con Dios Su Voluntad de que yo sea feliz."}, {"n": 103, "title": "Dios, al ser Amor, es también felicidad."}, {"n": 104, "title": "Busco únicamente lo que en verdad me pertenece."}, {"n": 105, "title": "Mías son la Paz y la Dicha de Dios."}, {"n": 106, "title": "Déjame aquietarme y escuchar la verdad."}, {"n": 107, "title": "La verdad corregirá todos los errores de mi mente."}, {"n": 108, "title": "Dar y recibir son en verdad lo mismo."}, {"n": 109, "title": "Descanso en Dios."}, {"n": 110, "title": "Soy tal como Dios me creó."}, {"n": 221, "title": "Que mi mente esté en paz y que todos mis pensamientos se aquieten."}, {"n": 222, "title": "Dios está conmigo. Vivo y me muevo en Él."}, {"n": 223, "title": "Dios es mi vida. No tengo otra vida que la Suya."}, {"n": 224, "title": "Dios es mi Padre y Él ama a Su Hijo."}, {"n": 225, "title": "Dios es mi Padre y Su Hijo Lo ama."}, {"n": 226, "title": "Mi hogar me aguarda. Me apresuraré a llegar a él."}, {"n": 227, "title": "Éste es el instante santo de mi liberación."}, {"n": 228, "title": "Dios no me ha condenado. Por lo tanto, yo tampoco me he de condenar."}, {"n": 229, "title": "El Amor, que es lo que me creó, es lo que soy."}, {"n": 230, "title": "Ahora buscaré y hallaré la Paz de Dios."}, {"n": 241, "title": "En este instante santo llega la salvación."}, {"n": 242, "title": "Este día se lo dedico a Dios. Es el regalo que Le hago."}, {"n": 243, "title": "Hoy no juzgaré nada de lo que ocurra."}, {"n": 244, "title": "No estoy en peligro en ningún lugar del mundo."}, {"n": 245, "title": "Tu Paz está conmigo, Padre. Estoy a salvo."}, {"n": 246, "title": "Amar a mi Padre es amar a Su Hijo."}, {"n": 247, "title": "Sin el perdón aún estaría ciego."}, {"n": 248, "title": "Lo que sufre no forma parte de mí."}, {"n": 249, "title": "El perdón pone fin a todo sufrimiento y a toda sensación de pérdida."}, {"n": 250, "title": "Que no vea ninguna limitación en mí."}, {"n": 281, "title": "Nada, excepto mis propios pensamientos, me puede hacer daño."}, {"n": 282, "title": "Hoy no tendré miedo del amor."}, {"n": 283, "title": "Mi verdadera identidad reside en Ti."}, {"n": 284, "title": "Puedo elegir cambiar todos los pensamientos que me causan dolor."}, {"n": 285, "title": "Hoy mi santidad brilla clara y radiante."}, {"n": 286, "title": "La quietud del Cielo envuelve hoy mi corazón."}, {"n": 287, "title": "Tú eres mi única meta, Padre mío, sólo Tú."}, {"n": 288, "title": "Que me olvide hoy del pasado de mi hermano."}, {"n": 289, "title": "El pasado no existe. No me puede afectar."}, {"n": 290, "title": "Lo único que veo es mi actual felicidad."}, {"n": 341, "title": "Tan sólo puedo atacar mi propia impecabilidad, que es lo único que me mantiene a salvo."}, {"n": 342, "title": "Dejo que el perdón descanse sobre todas las cosas, pues de ese modo es como se me concederá a mí."}, {"n": 343, "title": "No se me pide hacer ningún sacrificio para encontrar la Misericordia y la Paz de Dios."}, {"n": 344, "title": "Hoy aprendo la ley del amor: que lo que le doy a mi hermano es el regalo que me hago a mí mismo."}, {"n": 345, "title": "Hoy sólo ofrezco milagros, pues quiero que retornen a mí."}, {"n": 346, "title": "Hoy la Paz de Dios me envuelve y me olvido de todo excepto de Su Amor."}, {"n": 347, "title": "La ira procede de los juicios. Y los juicios son el arma que utilizo contra mí mismo a fin de mantener el"}, {"n": 348, "title": "Ni mi ira ni mi temor tienen razón de ser, pues Tú me rodeas. Y Tu Gracia me basta para satisfacer"}, {"n": 349, "title": "Hoy dejo que la visión de Cristo contemple todas las cosas por mí y que en lugar de juzgarlas, le conceda"}, {"n": 350, "title": "Los milagros reflejan el eterno Amor de Dios. Ofrecerlos es recordarlo a Él, y mediante Su recuerdo,"}, {"n": 351, "title": "Mi hermano impecable es mi guía a la paz. Mi hermano pecador es mi guía al dolor. Y el que decida ver"}, {"n": 352, "title": "Los juicios son lo opuesto al amor. De los juicios procede todo el dolor del mundo, y del amor, la Paz de"}, {"n": 353, "title": "Mis ojos, mi boca, mis manos y mis pies tienen hoy un solo propósito: estar al servicio de Cristo a fin de"}, {"n": 354, "title": "Cristo y yo nos encontramos unidos en paz y seguros de nuestro propósito. Su Creador mora en Él, tal"}, {"n": 355, "title": "La paz, la dicha y los milagros que otorgaré cuando acepte la Palabra de Dios son ilimitados. ¿Por qué no"}, {"n": 356, "title": "La enfermedad no es sino otro nombre para el pecado. La curación no es sino otro nombre para Dios. El"}, {"n": 357, "title": "La verdad contesta toda invocación que le hacemos a Dios, respondiendo primero con milagros, y luego"}, {"n": 358, "title": "Ninguna invocación a Dios puede dejar de ser oída o no recibir respuesta. Y de esto puedo estar seguro:"}, {"n": 359, "title": "La respuesta de Dios es alguna forma de paz. Todo dolor sana; toda aflicción es reemplazada por alegría."}, {"n": 360, "title": "Que la paz sea conmigo, el santo Hijo de Dios. Que la paz sea con mi hermano, que es uno conmigo. Y"}, {"n": 361, "title": "Te entrego este instante santo."}, {"n": 365, "title": "Sé Tú Quien dirige, pues quiero simplemente seguirte, seguro de que Tu dirección me brindará la paz."}];
+const CHAPTERS = [{"n": 1, "title": "El significado de los milagros", "theme": "milagros y percepción"}, {"n": 2, "title": "La separación y la Expiación", "theme": "miedo y separación"}, {"n": 3, "title": "La percepción inocente", "theme": "juicios y percepción"}, {"n": 4, "title": "Las ilusiones del ego", "theme": "ego e identidad"}, {"n": 5, "title": "Curación y plenitud", "theme": "curación interior"}, {"n": 6, "title": "Las lecciones del amor", "theme": "amor y no ataque"}, {"n": 7, "title": "Los regalos del Reino", "theme": "plenitud y confianza"}, {"n": 8, "title": "El viaje de retorno", "theme": "libertad y regreso"}, {"n": 9, "title": "La aceptación de la Expiación", "theme": "aceptación y perdón"}, {"n": 10, "title": "Los ídolos de la enfermedad", "theme": "miedo y percepción"}, {"n": 11, "title": "Dios o el ego", "theme": "elección entre miedo y amor"}, {"n": 12, "title": "El programa de estudios del Espíritu Santo", "theme": "aprendizaje interior"}, {"n": 13, "title": "El mundo inocente", "theme": "culpa e inocencia"}, {"n": 14, "title": "Las enseñanzas en favor de la verdad", "theme": "verdad y disposición"}, {"n": 15, "title": "El instante santo", "theme": "presente y quietud"}, {"n": 16, "title": "El perdón de las ilusiones", "theme": "perdón"}, {"n": 17, "title": "El perdón y la relación santa", "theme": "relaciones y perdón"}, {"n": 18, "title": "El final del sueño", "theme": "identidad y percepción"}, {"n": 19, "title": "La consecución de la paz", "theme": "obstáculos a la paz"}, {"n": 20, "title": "La visión de la santidad", "theme": "visión y santidad"}, {"n": 21, "title": "Razón y percepción", "theme": "interpretación y percepción"}, {"n": 22, "title": "La salvación y la relación santa", "theme": "relaciones"}, {"n": 23, "title": "La guerra contra ti mismo", "theme": "conflicto interior"}, {"n": 24, "title": "El deseo de ser especial", "theme": "especialismo y amor"}, {"n": 25, "title": "La justicia de Dios", "theme": "justicia y amor"}, {"n": 26, "title": "La transición", "theme": "cambio de percepción"}, {"n": 27, "title": "La curación del sueño", "theme": "curación y miedo"}, {"n": 28, "title": "El des-hacimiento del miedo", "theme": "miedo"}, {"n": 29, "title": "El despertar", "theme": "despertar interior"}, {"n": 30, "title": "El nuevo comienzo", "theme": "elegir de nuevo"}, {"n": 31, "title": "La visión final", "theme": "visión y elección"}];
+const $=id=>document.getElementById(id),canvas=$('art'),ctx=canvas.getContext('2d');
+let format='feed',lastIndex={};
+const dims={feed:[1080,1350],story:[1080,1920]};
+const bank={
+paz:['La paz no exige que todo cambie; puedo empezar por mirar de otra manera.','Puedo hacer una pausa antes de convertir un pensamiento en una certeza.','No necesito resolverlo todo ahora para elegir un instante de serenidad.'],
+perdon:['Perdonar es dejar de usar el pasado como única medida del presente.','Puedo reconocer el dolor sin convertirlo en una condena permanente.','Hoy puedo abrirme a una interpretación que no alimente el resentimiento.'],
+miedo:['No todo pensamiento temeroso describe lo que está ocurriendo.','Puedo escuchar el miedo sin entregarle todas mis decisiones.','Una pausa me permite elegir mi respuesta en lugar de reaccionar automáticamente.'],
+culpa:['Puedo reconocer un error sin convertirlo en mi identidad.','Aprender no exige que me condene para siempre.','La responsabilidad me invita a elegir de nuevo; la condena me deja atrapado.'],
+relaciones:['Puedo buscar comprensión sin exigir que el otro confirme mi interpretación.','Una conversación cambia cuando dejo espacio para escuchar de verdad.','Puedo mirar una relación como una oportunidad para revisar mis juicios.'],
+ego:['Mi primera interpretación no tiene por qué ser la única posible.','Puedo cuestionar la historia que mi mente construye alrededor de lo ocurrido.','Mirar de nuevo también es una forma de libertad.'],
+dios:['Puedo descansar en la confianza sin conocer cada paso del camino.','No necesito resolver hoy todas las preguntas para dar el siguiente paso.','La quietud me ayuda a recordar qué clase de respuesta quiero ofrecer.'],
+presente:['Puedo volver a este instante sin exigir que sea perfecto.','El presente me ofrece una oportunidad para elegir de nuevo.','Puedo dejar de alimentar por un momento las historias sobre ayer y mañana.']
+};
+const egoBank={
+paz:['El ego dice: “No puedo estar en paz hasta que todo cambie.”','El espíritu responde: “Puedo elegir una mirada más serena en medio de lo que hay.”'],
+perdon:['El ego dice: “Debo seguir castigando por lo que pasó.”','El espíritu responde: “Puedo aprender del pasado sin convertirlo en una condena.”'],
+miedo:['El ego dice: “Tengo que creer cada pensamiento que me asusta.”','El espíritu responde: “Puedo detenerme y mirar de nuevo antes de reaccionar.”'],
+culpa:['El ego dice: “Mi error define quién soy.”','El espíritu responde: “Puedo reconocer lo ocurrido y elegir una respuesta distinta.”'],
+relaciones:['El ego dice: “Necesito tener razón.”','El espíritu responde: “Puedo buscar comprensión en lugar de victoria.”'],
+ego:['El ego dice: “Mi interpretación es la única posible.”','El espíritu responde: “Estoy dispuesto a mirar de otra manera.”'],
+dios:['El ego dice: “Tengo que resolverlo todo por mi cuenta.”','El espíritu responde: “Puedo pedir guía y dar el siguiente paso.”'],
+presente:['El ego dice: “Estaré bien cuando todo sea distinto.”','El espíritu responde: “Puedo hacer una pausa y volver a este instante.”']
+};
+const chapterParaphrases={
+1:'Puedo abrirme a una mirada que transforme mi reacción habitual.',
+2:'El miedo pierde fuerza cuando dejo de tratar la separación como una certeza.',
+3:'Puedo revisar mis juicios y permitir una percepción más inocente.',
+4:'No tengo que obedecer cada historia que construye el ego sobre mí.',
+5:'Puedo recibir ayuda interior cuando dejo de defender cada pensamiento.',
+6:'Elijo responder sin convertir el dolor en una razón para atacar.',
+7:'La plenitud no depende de demostrar que soy especial.',
+8:'Puedo avanzar hacia la libertad al revisar aquello que me mantiene atado.',
+9:'Aceptar la corrección abre espacio para una manera distinta de percibir.',
+10:'Puedo cuestionar las ideas que alimentan mi miedo y mi sensación de separación.',
+11:'Cada instante me ofrece la posibilidad de elegir entre el miedo y el amor.',
+12:'Puedo aprender a escuchar una guía distinta de mis reacciones habituales.',
+13:'No necesito hacer de la culpa una identidad; puedo volver a mirar.',
+14:'La disposición a aprender puede ser más útil que la necesidad de tener razón.',
+15:'En una pausa sincera, puedo dejar de repetir por un momento mis historias.',
+16:'El perdón me invita a soltar la interpretación que mantiene vivo el resentimiento.',
+17:'Una relación puede convertirse en un espacio para aprender a mirar sin condenar.',
+18:'Puedo cuestionar la imagen limitada que he construido de mí mismo.',
+19:'La paz se hace más accesible cuando reconozco qué pensamientos la obstaculizan.',
+20:'Puedo mirar más allá de las apariencias y elegir una respuesta más amable.',
+21:'Mi percepción cambia cuando reviso la interpretación desde la que estoy mirando.',
+22:'Puedo acercarme a una relación con voluntad de comprender y perdonar.',
+23:'No necesito convertir cada conflicto en una guerra contra mí mismo.',
+24:'Puedo soltar la necesidad de ser especial y abrir espacio para una conexión real.',
+25:'Puedo buscar una respuesta guiada por el amor en lugar de la condena.',
+26:'Cambiar mi manera de mirar puede abrir una salida donde antes veía un límite.',
+27:'Puedo dejar de confundir mis interpretaciones con la verdad absoluta.',
+28:'No tengo que seguir alimentando el miedo; puedo elegir una pausa.',
+29:'Despertar comienza cuando dejo de tratar mis interpretaciones como hechos definitivos.',
+30:'Puedo empezar de nuevo sin exigir que el presente repita el pasado.',
+31:'Cada elección me permite revisar la percepción y acercarme a una mayor paz.'
+};
+function val(id){return $(id).value.trim()}
+function wrap(s,max,font){ctx.font=font;let lines=[],line='';for(const w of (s||'').split(/\s+/)){let t=line?line+' '+w:w;if(ctx.measureText(t).width>max&&line){lines.push(line);line=w}else line=t}if(line)lines.push(line);return lines}
+function draw(){
+ const [W,H]=dims[format];canvas.width=W;canvas.height=H;
+ ctx.fillStyle='#111a35';ctx.fillRect(0,0,W,H);
+ // Thin gold frame, book-cover inspired
+ const m=W*.075;ctx.strokeStyle='#d9bd75';ctx.lineWidth=Math.max(2,W*.002);ctx.strokeRect(m,m,W-2*m,H-2*m);
+ const x=W/2,pad=W*.13;ctx.textAlign='center';
+ let size=val('size')==='small'?W*.045:val('size')==='large'?W*.075:W*.061,font=val('font'),lines,f;
+ do{f=`500 ${size}px "${font}"`;lines=wrap(val('quote'),W-pad*2,f);if(lines.length>8)size-=2;else break}while(size>26);
+ ctx.font=f;const lh=size*1.3;let top=H*.48-lines.length*lh/2;ctx.fillStyle='#f5e9c8';
+ lines.forEach((s,i)=>ctx.fillText(s,x,top+i*lh));
+ // Small source/lesson label immediately below the main quote
+ const labelY=top+lines.length*lh+W*.045;
+ ctx.font=`500 ${W*.018}px "DM Sans"`;ctx.fillStyle='#d9bd75';
+ wrap(val('kicker').toUpperCase(),W*.76,ctx.font).slice(0,2).forEach((s,i)=>ctx.fillText(s,x,labelY+i*W*.025));
+ ctx.strokeStyle='#8e7949';ctx.beginPath();ctx.moveTo(W*.40,H*.84);ctx.lineTo(W*.60,H*.84);ctx.stroke();
+ ctx.font=`600 ${W*.018}px "DM Sans"`;ctx.fillStyle='#d9bd75';wrap(val('signature').toUpperCase(),W*.72,ctx.font).slice(0,2).forEach((s,i)=>ctx.fillText(s,x,H*.88+i*W*.026));
+}
+function setFormat(f){format=f;document.querySelectorAll('[data-format]').forEach(b=>b.classList.toggle('active',b.dataset.format===f));draw()}
+function download(){const a=document.createElement('a');a.download=`ucdm-premium-${format}.png`;a.href=canvas.toDataURL('image/png');a.click()}
+function copyText(s){if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(s).catch(()=>fallbackCopy(s));else fallbackCopy(s)}
+function fallbackCopy(s){const t=document.createElement('textarea');t.value=s;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}
+function setStatus(s){$('status').textContent=s}
+function randomItem(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function updateModeButtons(active){['generatePara','generateLesson','generateBook','generateEgo'].forEach(id=>$(id).classList.toggle('active',id===active))}
+function generatePara(){
+ const topic=val('topic');$('lessonField').classList.add('hidden');$('chapterField').classList.add('hidden');updateModeButtons('generatePara');
+ $('quote').value=randomItem(bank[topic]);$('kicker').value='INSPIRADO EN UN CURSO DE MILAGROS';
+ setStatus('Frase original generada automáticamente. No es una cita textual ni se atribuye a una lección concreta.');draw();
+}
+function generateEgo(){
+ const topic=val('topic');$('lessonField').classList.add('hidden');$('chapterField').classList.add('hidden');updateModeButtons('generateEgo');
+ $('quote').value=egoBank[topic].join('\n\n');$('kicker').value='INSPIRADO EN UN CURSO DE MILAGROS';
+ setStatus('Se generaron ambas partes como texto original inspirado en el tema seleccionado.');draw();
+}
+function generateLesson(){
+ $('lessonField').classList.remove('hidden');$('chapterField').classList.add('hidden');updateModeButtons('generateLesson');
+ const selected=val('lessonSelect');let item=selected==='random'?randomItem(LESSONS):LESSONS.find(x=>String(x.n)===selected);
+ if(!item){setStatus('No se encontró ese título en el índice incorporado.');return}
+ $('quote').value=item.title;$('kicker').value='UN CURSO DE MILAGROS · LECCIÓN '+item.n;
+ setStatus('Título de la lección tomado del índice del PDF aportado. Es el título, no el texto completo de la lección.');draw();
+}
+function generateBook(){
+ $('lessonField').classList.add('hidden');$('chapterField').classList.remove('hidden');updateModeButtons('generateBook');
+ const selected=val('chapterSelect');const item=CHAPTERS.find(x=>String(x.n)===selected)||randomItem(CHAPTERS);
+ $('quote').value=chapterParaphrases[item.n];$('kicker').value='LIBRO DE TEXTO · CAPÍTULO '+item.n;
+ setStatus('Paráfrasis original asociada al tema del capítulo “'+item.title+'”. No es una cita literal ni una extracción textual.');draw();
+}
+function useLiteral(){
+ const txt=val('literal');if(!txt){setStatus('Pega primero una cita breve de tu edición.');return}
+ $('quote').value=txt;$('kicker').value=val('literalRef')||'CITA PEGADA DE TU EDICIÓN';
+ $('lessonField').classList.add('hidden');$('chapterField').classList.add('hidden');
+ setStatus('Texto incorporado tal como lo pegaste. Revisa que la referencia sea correcta y que tengas permiso para compartirlo.');draw();
+}
+function populate(){
+ $('lessonSelect').innerHTML='<option value="random">Aleatoria entre los títulos indexados</option>'+LESSONS.map(x=>`<option value="${x.n}">Lección ${x.n} — ${escapeHtml(x.title)}</option>`).join('');
+ $('chapterSelect').innerHTML=CHAPTERS.map(x=>`<option value="${x.n}">Capítulo ${x.n} — ${escapeHtml(x.title)}</option>`).join('');
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('[data-format]').forEach(b=>b.onclick=()=>setFormat(b.dataset.format));
+['topic','font','size','kicker','signature','quote'].forEach(id=>$(id).addEventListener('input',draw));
+$('generatePara').onclick=generatePara;$('generateLesson').onclick=generateLesson;$('generateBook').onclick=generateBook;$('generateEgo').onclick=generateEgo;$('useLiteral').onclick=useLiteral;
+$('download').onclick=download;$('downloadTop').onclick=download;
+$('copy').onclick=()=>copyText(val('quote')+'\n\n'+val('kicker'));
+$('reset').onclick=()=>{$('topic').value='paz';$('font').value='Playfair Display';$('size').value='medium';$('kicker').value='UN CURSO DE MILAGROS';$('signature').value='UN CURSO DE MILAGROS';$('literal').value='';$('literalRef').value='';$('quote').value='La paz comienza cuando dejo de luchar con este instante.';$('lessonField').classList.add('hidden');$('chapterField').classList.add('hidden');updateModeButtons('generatePara');setFormat('feed');setStatus('Diseño restablecido.');draw()};
+populate();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);draw();
+</script></body></html>
